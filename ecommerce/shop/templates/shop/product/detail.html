@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+	#buttonCart{
+		width: 150px
+
+	}
+	#main3{
+		padding-right:17%;
+		padding-left:17%;
+	}
+	#product2{
+		padding-right:17%;
+		padding-left:17%;
+	}
+	#sizeOfTable{
+		width: 300px;
+	}
+	#sizeOfTable2{
+		padding-left:5%; 
+		width: 500px;
+		font-size:18px;
+	}
+</style>
+<table id="main3">
+<tbody>
+<tr>
+<td id="sizeOfTable">
+	<div id="product2">
+		<img src="
+			{% if product.Image %}
+				{{product.Image.url}}
+			{% else %}
+				{% static 'img/default.png' %}
+			{% endif %}"
+		width=250px>
+	</div>
+</td>
+<td id="sizeOfTable2"><h2>{{product.name}}</h2>
+<h4><a href="{{product.category.get_absolute_url}}">{{product.category}}</a><h4>
+	<p class="price">${{product.price}}</p>
+	</td>
+	<td id="sizeOfTable2">{{product.description|linebreaks}}</td>
+	
+	<form  method="post" action="{% url 'cart:cart_add' product.id %}">
+			{% csrf_token %}
+			{{cart_product_form}}
+			<td><input type="submit" id="buttonCart" class="btn btn-success" value="Add to cart"></td>
+		</form>
+		
+</tr>
+	
+
+</tbody>
+</table>
+
+<!-- 	<div id="product2">
+		<img src="
+			{% if product.Image %}
+				{{product.Image.url}}
+			{% else %}
+				{% static 'img/default.png' %}
+			{% endif %}"
+		width=300px>
+		{{product.name}}
+		<h2><a href="{{product.category.get_absolute_url}}">{{product.category}}</a><h2>
+		<p class="price">${{product.price}}</p>
+		<form method="post" action="{% url 'cart:cart_add' product.id %}">
+			{% csrf_token %}
+			{{cart_product_form}}
+			<input type="submit" value="Add to cart">
+		</form>
+		{{product.description|linebreaks}}
+
+	</div> -->
+{% endblock content %}
+

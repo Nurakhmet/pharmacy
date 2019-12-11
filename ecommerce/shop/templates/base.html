@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        {% block title_ %}
+            Home
+        {% endblock title_ %}
+    </title>
+    <link rel="stylesheet" type="text/css" href='{% static "css/style.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "https://use.fontawesome.com/releases/v5.8.1/css/all.css" %}'>
+    <link type="text/css" href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'css/style.min.css' %}" rel="stylesheet"> 
+  <style>
+    .headerText{
+      color:#009900;
+    }
+  </style>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand waves-effect" href="{% url 'shop:product_list' %}">
+        <h1><strong class="headerText">Pharmacy</strong></h1>
+      </a>
+
+        <!-- <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link waves-effect" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>  -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+              <form class="form-inline" action="{% url 'search_results' %}" method="get">
+                <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" name="q" type="text" placeholder="Search...">
+                <button  type="submit">Search</button>
+              </form>
+          </li>
+        </ul> 
+        
+
+        <ul class="navbar-nav nav-flex-icons">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link waves-effect">
+              <div class="cart">
+                {% with total_items=cart|length %}
+                  {% if cart|length > 0 %}
+                    <a href="{% url 'cart:cart_detail' %}">
+                      <span class="badge red z-depth-1 mr-1"> {{total_items}} </span>
+                      <i class="fas fa-shopping-cart"></i>
+                      Cart ${{cart.get_total_price}}
+                    </a>
+                  {% endif %}
+                {% endwith %}
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+              <span class="clearfix d-none d-sm-inline-block"> Logout </span>
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+              <span class="clearfix d-none d-sm-inline-block"> Login </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+              <span class="clearfix d-none d-sm-inline-block"> Signup </span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+
+      </div>
+  </nav>
+</head>
+<style>
+  #bodyclr{
+    padding-top: 5%;
+  background-image: url("https://image.freepik.com/free-photo/abstract-blur-defocused-pharmacy-drug-store_1203-9459.jpg");
+  background-repeat: no-repeat;
+
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  }
+</style>>
+<body id="bodyclr">
+  
+    <div id="header">
+        <!-- <a href="{% url 'shop:product_list' %}"><h1 id='ts'>My shop</h1></a> -->
+        
+    </div>
+    {% block content %}
+        content
+    {% endblock content %}
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title_ %}
+	{% if category %}
+		{{category.name}}
+	{% else %}
+		Products
+	{% endif %}
+{% endblock title_ %}
+{% block content %}
+<style>
+	.container2{
+		color:#e0e0e0;
+		font-size:17px;
+
+	}
+	.navbar1{
+		color:#009900;
+		font-weight: bold;
+	}
+</style>
+	<div class="container2">
+
+      <!--Navbar-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <!-- Navbar brand -->
+        <span class="navbar-brand">Categories:</span>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+          aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li
+					{% if not category %}
+						class = "selected"
+					{% endif %}
+				>
+					<a href="{% url 'shop:product_list' %}" class="navbar1">All</a>
+				</li>
+          </ul>
+          {% for cat in categories %}
+			<ul class="navbar-nav mr-auto">
+				<li
+					{% if category.slug == cat.slug %}
+						class = "selected"
+					{% endif %}
+				>
+					<a href="{{cat.get_absolute_url}}" class="navbar1">{{cat.name}}</a>
+				</li>
+			</ul>
+		{% endfor %}
+        
+     </nav>
+    </div>
+<!-- id="main" -->
+<style>
+	#main2{
+		padding-right:17%;
+		padding-left:17%;
+	}
+	#table2{
+		background-color:"ffffff";
+		opacity: 0,4;
+	}
+</style>
+    <div id="main2">
+		<h1>
+			{% if category %}
+				{{category.name}}
+			{% else %}
+				Products
+			{% endif %}
+		</h1>
+
+<table class="table table-bordered" bgcolor="ffffff">
+<!-- <tbody> -->
+	{% for prod in products %}
+<tr>
+<td>
+	<div class="items">
+		<a href="{{prod.get_absolute_url}}">
+			<img src="
+				{% if prod.Image %}
+					{{prod.Image.url}}
+				{% else %}
+					{% static 'img/default.png' %}
+				{% endif %}"
+				width=250px>
+		</a><br>
+					<!-- <p class="center"><a href="{{prod.get_absolute_url}}">{{prod.name}}</a> -->
+		<br><!-- Price : ${{prod.price}}</p> -->
+	</div>
+			</td>
+<td style="width: 420px;"><p class="center"><a href="{{prod.get_absolute_url}}">{{prod.name}}</a></td>
+<td style="width: 410px;">Price : ${{prod.price}}</p></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+			<!-- {% for prod in products %}
+				<div class="items">
+					<a href="{{prod.get_absolute_url}}">
+						<img src="
+							{% if prod.Image %}
+								{{prod.Image.url}}
+							{% else %}
+								{% static 'img/default.png' %}
+							{% endif %}"
+						width=250px>
+					</a><br>
+					<p class="center"><a href="{{prod.get_absolute_url}}">{{prod.name}}</a>
+					<br>Price : ${{prod.price}}</p>
+				</div>
+			{% endfor %} -->
+</div>
+{% endblock content %}

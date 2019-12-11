@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h1>Search Results</h1>
+
+<ul>
+	<table class="table table-bordered" bgcolor="ffffff">
+		{% for prod in object_list %}
+    <tr>
+	<td>
+	<div class="items">
+		<a href="{{prod.get_absolute_url}}">
+			<img src="
+				{% if prod.Image %}
+					{{prod.Image.url}}
+				{% else %}
+					{% static 'img/default.png' %}
+				{% endif %}"
+				width=250px>
+		</a><br>
+					<!-- <p class="center"><a href="{{prod.get_absolute_url}}">{{prod.name}}</a> -->
+		<br><!-- Price : ${{prod.price}}</p> -->
+	</div>
+	</td>
+<td style="width: 420px;"><p class="center"><a href="{{prod.get_absolute_url}}">{{prod.name}}</a></td>
+<td style="width: 410px;">Price : ${{prod.price}}</p></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</ul>
+
+{% endblock content %}
