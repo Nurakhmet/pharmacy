@@ -135,6 +135,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media/')
 CART_SESSION_ID = 'cart'
 
+#paying by paypal
 PAYPAL_TEST = True
 
 PAYPAL_RECEIVER_EMAIL = 'test-paypal@example.com'
@@ -153,6 +154,7 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 
+#email purchase configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
